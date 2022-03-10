@@ -23,9 +23,9 @@ Circle * getCircleInput(){
 
     try {
        cin >> x >> y >> radius;
-       if (is_number(x) == false) throw InputException(x);
-       if (is_number(y) == false) throw InputException(y);
-       if (is_number(radius) == false) throw InputException(radius);
+       if (is_number(x) == false || stod(x) <= 0) throw InputException(x);
+       if (is_number(y) == false || stod(y) <= 0) throw InputException(y);
+       if (is_number(radius) == false || stod(radius) <= 0) throw InputException(radius);
     }
     catch (InputException& e)
     {
@@ -37,10 +37,22 @@ Circle * getCircleInput(){
 }
 
 Rectangle * getRectangleInput(){
-    double x, y, width, height;
+    string x, y, width, height;
     cout << "Enter x, y, width, and height: ";
-    cin >> x >> y >> width >> height;
-    Rectangle* r = new Rectangle(x, y, width, height);
+
+    try {
+        cin >> x >> y >> width >> height;
+        if (is_number(x) == false || stod(x) <= 0) throw InputException(x);
+        if (is_number(y) == false || stod(y) <= 0) throw InputException(y);
+        if (is_number(width) == false || stod(width) <= 0) throw InputException(width);
+        if (is_number(height) == false || stod(height) <= 0) throw InputException(height);
+    }
+    catch (InputException& e)
+    {
+        std::cout << "Exception:\n" << e.getError() << std::endl;
+    }
+
+    Rectangle* r = new Rectangle(stod(x), stod(y), stod(width), stod(height));
     return r;
 }
 
